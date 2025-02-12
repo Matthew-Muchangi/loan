@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="row w-75 shadow p-4 bg-white rounded">
+      <!-- Image Section -->
+      <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center">
+        <img src="/assets/signup.png" alt="Register" class="img-fluid" style="max-height: 300px; border-radius: 10px;">
+      </div>
+  
+      <!-- Form Section -->
+      <div class="col-md-6">
+        <div class="card p-4" style="border: 1px solid #0288d1;">
+          <h2 class="text-center mb-4" style="color: #0288d1;">Loan Management - Register</h2>
+  
+          <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <div class="form-group mb-3">
+              <label for="username">Username</label>
+              <input id="username" type="string" class="form-control" formControlName="username" placeholder="Enter your username" />
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="firstname">First Name</label>
+              <input id="firstname" type="string" class="form-control" formControlName="firstname" placeholder="Enter your First Name" />
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="lastname">Last Name</label>
+              <input id="lastname" type="string" class="form-control" formControlName="lastname" placeholder="Enter your Last Name" />
+            </div>
+  
+            <div class="form-group mb-3">
+              <label for="email">Email</label>
+              <input id="email" type="email" class="form-control" formControlName="email" placeholder="Enter your email" />
+            </div>
+  
+      
+    
+            <div class="form-group mb-3">
+              <label for="password">Password</label>
+              <input id="password" type="password" class="form-control" formControlName="password" placeholder="Create a password" />
+            </div>
+
+            
+  
+            <button type="submit" class="btn btn-info w-100 mt-3 text-white" style="background-color: #0288d1;">
+              Register
+            </button>
+            
+            <p class="text-danger mt-2" *ngIf="errorMessage">{{ errorMessage }}</p>
+            
+          </form>
+  
+          <div class="text-center mt-3">
+            <p>Already have an account? <a [routerLink]="['']" style="color: #0288d1;">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

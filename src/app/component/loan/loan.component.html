@@ -1,0 +1,59 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <div class="row flex-grow-1">
+    <!-- Sidebar -->
+    <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+      <div class="position-sticky pt-3">
+        
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active text-white" routerLink="/dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/customer">Manage Customers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/loan">Manage Loans</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <h1 style="text-align: center; font-weight: bold;">Manage Loans</h1>
+
+      <form [formGroup]="loanForm" (ngSubmit)="addLoan()">
+        <div class="mb-3">
+          <label for="amount">Loan Amount</label>
+          <input id="amount" formControlName="amount" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="term">Loan Term (Months)</label>
+          <input id="term" formControlName="term" class="form-control" required />
+        </div>
+        <button class="btn btn-primary" type="submit">Add Loan</button>
+      </form>
+
+      <h4 class="mt-4">Loan Repayment Schedule</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Term (Months)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let loan of loans">
+            <td>{{ loan.amount }}</td>
+            <td>{{ loan.term }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm me-2" (click)="updateLoan(loan)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteLoan(loan)">Delete</button>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</div>

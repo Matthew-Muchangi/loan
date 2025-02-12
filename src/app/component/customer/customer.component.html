@@ -1,0 +1,86 @@
+<div
+  class="container-fluid vh-100 d-flex flex-column"
+>
+  <div class="row flex-grow-1">
+    <!-- Sidebar -->
+  <!-- Sidebar -->
+  <nav class="col-md-2 d-none d-md-block bg-dark sidebar vh-100">
+    <div class="position-sticky pt-3">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active text-white" routerLink="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/customer">Manage Customers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/loan">Manage Loans</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
+      <h1 style="text-align: center; font-weight: bold;">Manage Customers</h1>
+
+      <!-- Customer Form -->
+      <form [formGroup]="customerForm" (ngSubmit)="addCustomer()">
+        <div class="mb-3">
+          <label for="name">Name</label>
+          <input
+            id="name"
+            formControlName="name"
+            class="form-control"
+            placeholder="Enter customer name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            formControlName="email"
+            class="form-control"
+            placeholder="Enter customer email"
+            required
+          />
+        </div>
+        <button class="btn btn-primary" type="submit">
+          {{ isEditing ? 'Update Customer' : 'Add Customer' }}
+        </button>
+      </form>
+
+      <!-- Customer List -->
+      <h4 class="mt-4">Customer List</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customers; let i = index">
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.email }}</td>
+            <td>
+              <!--Edit Customer Data-->
+              <button
+                class="btn btn-primary btn-sm me-2"
+                (click)="editCustomer(customer, i)">Edit
+              </button>
+              <!--Delete Customer Data-->
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="deleteCustomer(customer)">Delete
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</div>
