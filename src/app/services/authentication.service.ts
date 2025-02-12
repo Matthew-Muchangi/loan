@@ -10,7 +10,7 @@ export class AuthenticationService {
   private registerUrl = 'http://172.16.8.24:8080/auth/register'; // 🔹 Register API URL
 
   constructor(private http: HttpClient) {}
-
+// login 22
   // Login API call
   login(credentials: { username: string; password: string }): Observable<any> {
     return this.http.post<any>(this.loginUrl, credentials);
