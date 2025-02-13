@@ -45,23 +45,22 @@ export class CustomerComponent implements OnInit {
     }
 
     const customerData = {
-      id: this.editingCustomerId || 0,
       firstname: this.customerForm.value.firstname,
       lastname: this.customerForm.value.lastname,
       phonenumber: this.customerForm.value.phonenumber,
       nationalid: this.customerForm.value.nationalid,
       created_at: new Date(),
-      updated_at: new Date()
+      updated_at: new Date(),
     };
 
     if (this.isEditing && this.editingCustomerId !== null) {
-      this.customerService.updateCustomer(this.editingCustomerId, customerData).subscribe(() => {
+      this.customerService.updateCustomer(this.editingCustomerId, { id: this.editingCustomerId, ...customerData }).subscribe(() => {
         this.loadCustomers();
         this.resetForm();
       });
     } else {
-      this.customerService.addCustomer(customerData).subscribe(() => {
-        this.loadCustomers();
+      this.customerService.addCustomer(customerData).subscribe((newCustomer) => {
+        this.customers.push(newCustomer); // Use backend-generated ID
         this.resetForm();
       });
     }
@@ -74,7 +73,7 @@ export class CustomerComponent implements OnInit {
       firstname: customer.firstname,
       lastname: customer.lastname,
       phonenumber: customer.phonenumber,
-      nationalid: customer.nationalid
+      nationalid: customer.nationalid,
     });
   }
 
@@ -94,6 +93,6 @@ export class CustomerComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['']); // Redirect to dashboard after logout
+    this.router.navigate(['']);
   }
 }

@@ -6,7 +6,6 @@ interface Customer {
   id: number;
   firstname: string;
   lastname: string;
-
   phonenumber: string;
   nationalid: string;
   created_at: Date;
@@ -20,7 +19,7 @@ export class CustomerService {
   private apiUrl = 'http://172.16.8.24:8080/customers';
   private customersSubject = new BehaviorSubject<Customer[]>([]);
   customers$ = this.customersSubject.asObservable();
-  
+
   constructor(private http: HttpClient) {}
 
   getCustomers(): Observable<Customer[]> {
@@ -31,7 +30,7 @@ export class CustomerService {
     return this.http.get<Customer>(`${this.apiUrl}/${id}`);
   }
 
-  addCustomer(customer: Customer): Observable<Customer> {
+  addCustomer(customer: Omit<Customer, 'id'>): Observable<Customer> {
     return this.http.post<Customer>(this.apiUrl, customer);
   }
 

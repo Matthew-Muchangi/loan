@@ -1,7 +1,6 @@
 <div class="container-fluid vh-100 d-flex flex-column">
   <div class="row flex-grow-1">
     <!-- Sidebar -->
-    <!-- Sidebar -->
     <nav class="col-md-2 d-none d-md-block bg-dark sidebar position-fixed top-0 start-0 vh-100 d-flex flex-column justify-content-between">
       <div class="pt-3">
         <ul class="nav flex-column">
@@ -22,7 +21,7 @@
           </li>
         </ul>
       </div>
-    
+
       <!-- Logout Button -->
       <div class="p-3">
         <button class="btn btn-outline-light w-100" (click)="logout()">
@@ -30,7 +29,6 @@
         </button>
       </div>
     </nav>
-    
 
     <!-- Main Content -->
     <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
@@ -40,55 +38,19 @@
       <form [formGroup]="customerForm" (ngSubmit)="addOrUpdateCustomer()">
         <div class="mb-3">
           <label for="firstname">First Name</label>
-          <input
-            id="firstname"
-            formControlName="firstname"
-            class="form-control"
-            placeholder="Enter first name"
-            required
-          />
+          <input id="firstname" formControlName="firstname" class="form-control" placeholder="Enter first name" required />
         </div>
         <div class="mb-3">
           <label for="lastname">Last Name</label>
-          <input
-            id="lastname"
-            formControlName="lastname"
-            class="form-control"
-            placeholder="Enter last name"
-            required
-          />
+          <input id="lastname" formControlName="lastname" class="form-control" placeholder="Enter last name" required />
         </div>
-        <!-- <div class="mb-3">
-          <label for="email">Email</label>
-          <input
-            id="email"
-            formControlName="email"
-            type="email"
-            class="form-control"
-            placeholder="Enter customer email"
-            required
-          />
-        </div> -->
         <div class="mb-3">
           <label for="phonenumber">Phone Number</label>
-          <input
-            id="phonenumber"
-            formControlName="phonenumber"
-            type="text"
-            class="form-control"
-            placeholder="Enter phone number"
-            required
-          />
+          <input id="phonenumber" formControlName="phonenumber" type="text" class="form-control" placeholder="Enter phone number" required />
         </div>
         <div class="mb-3">
           <label for="nationalid">National ID</label>
-          <input
-            id="nationalid"
-            formControlName="nationalid"
-            class="form-control"
-            placeholder="Enter national ID"
-            required
-          />
+          <input id="nationalid" formControlName="nationalid" class="form-control" placeholder="Enter national ID" required />
         </div>
         <button class="btn btn-primary" type="submit">
           {{ isEditing ? 'Update Customer' : 'Add Customer' }}
@@ -100,9 +62,9 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>#</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <!-- <th>Email</th> -->
             <th>Phone Number</th>
             <th>National ID</th>
             <th>Created At</th>
@@ -112,6 +74,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let customer of customers; let i = index">
+            <td>{{ customer.id }}</td>
             <td>{{ customer.firstname }}</td>
             <td>{{ customer.lastname }}</td>
             <td>{{ customer.phonenumber }}</td>
@@ -119,14 +82,8 @@
             <td>{{ customer.created_at | date:'short' }}</td>
             <td>{{ customer.updated_at | date:'short' }}</td>
             <td>
-              <!-- Edit Customer -->
-              <button class="btn btn-primary btn-sm me-2" (click)="editCustomer(customer)">
-                Edit
-              </button>
-              <!-- Delete Customer -->
-              <button class="btn btn-danger btn-sm" (click)="deleteCustomer(customer)">
-                Delete
-              </button>
+              <button class="btn btn-primary btn-sm me-2" (click)="editCustomer(customer)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteCustomer(customer)">Delete</button>
             </td>
           </tr>
         </tbody>

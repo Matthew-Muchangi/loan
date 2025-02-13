@@ -1,37 +1,33 @@
 <div class="container-fluid vh-100 bg-light">
   <div class="row h-100">
     <!-- Sidebar -->
-    <!-- Sidebar Navigation -->
-<nav class="col-md-2 d-none d-md-block bg-dark sidebar position-fixed top-0 start-0 vh-100 d-flex flex-column justify-content-between">
-  <div class="pt-3">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link active text-white" routerLink="/dashboard">
-          <i class="bi bi-speedometer2"></i> Dashboard
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" routerLink="/customer">
-          <i class="bi bi-people-fill"></i> Manage Customers
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" routerLink="/loan">
-          <i class="bi bi-cash-coin"></i> Manage Loans
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Logout Button -->
-  <div class="p-3">
-    <button class="btn btn-outline-light w-100" (click)="logout()">
-      <i class="bi bi-box-arrow-right"></i> Sign Out
-    </button>
-  </div>
-</nav>
-
-
+    <nav class="col-md-2 d-none d-md-block bg-dark sidebar position-fixed top-0 start-0 vh-100 d-flex flex-column justify-content-between">
+      <div class="pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active text-white" routerLink="/dashboard">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/customer">
+              <i class="bi bi-people-fill"></i> Manage Customers
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/loan">
+              <i class="bi bi-cash-coin"></i> Manage Loans
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="p-3">
+        <button class="btn btn-outline-light w-100" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i> Sign Out
+        </button>
+      </div>
+    </nav>
+    
     <!-- Main Content -->
     <main class="col-md-10 ms-auto px-md-5 py-4">
       <h2 class="fw-bold text-primary">Loan Management Dashboard</h2>
@@ -50,7 +46,7 @@
           <div class="card shadow-sm border-0">
             <div class="card-body text-center">
               <h5 class="card-title text-success">Active Loans</h5>
-              <p class="fs-3 fw-bold text-dark">890</p>
+              <p class="fs-3 fw-bold text-dark">{{ totalLoans }}</p>
             </div>
           </div>
         </div>
@@ -62,9 +58,7 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Charts Section -->
+        <!-- Charts Section -->
       <div class="row mt-4">
         <div class="col-md-6">
           <div class="card shadow-sm border-0">
@@ -83,55 +77,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Loan Records Table -->
-      <div class="mt-4">
-        <h4 class="text-primary fw-bold">Loan Records</h4>
-        <div class="table-responsive">
-          <table class="table table-hover shadow-sm">
-            <thead class="table-primary">
-              <tr>
-                <th>Full Name</th>
-                <th>Amount</th>
-                <th>Term (Months)</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>John Doe</td>
-                <td>$10,000</td>
-                <td>12</td>
-                <td><span class="badge bg-success">Active</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
-                  <button class="btn btn-sm btn-outline-danger">Delete</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Jane Smith</td>
-                <td>$5,000</td>
-                <td>24</td>
-                <td><span class="badge bg-danger">Overdue</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
-                  <button class="btn btn-sm btn-outline-danger">Delete</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Mark Johnson</td>
-                <td>$50,000</td>
-                <td>22</td>
-                <td><span class="badge bg-primary">Pending</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
-                  <button class="btn btn-sm btn-outline-danger">Delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </main>
   </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/services/customer.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router } from '@angular/router';
+import { LoanService } from 'src/app/services/loan.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,9 +12,12 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   customers: { firstname: string; lastname: string; phonenumber: string; nationalid: string; }[] = [];
   totalCustomers: number = 0;
+  totalLoans: number = 0;
+overdueLoans: any;
 
   constructor(
     private customerService: CustomerService,
+    private loanService: LoanService,
     private authService: AuthenticationService,
     private router: Router
   ) {}
@@ -22,12 +26,20 @@ export class DashboardComponent implements OnInit {
     this.customerService.customers$.subscribe((customers) => {
       this.customers = customers;
       this.loadCustomerCount();
+      
     });
+    this.loadLoanCount();
   }
 
   loadCustomerCount(): void {
     this.customerService.getCustomers().subscribe(customers => {
       this.totalCustomers = customers.length;
+    });
+  }
+
+  loadLoanCount(): void {
+    this.loanService.getLoans().subscribe(loans => {
+      this.totalLoans = loans.length;
     });
   }
 

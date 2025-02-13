@@ -21,7 +21,7 @@
           </li>
         </ul>
       </div>
-    
+
       <!-- Logout Button -->
       <div class="p-3">
         <button class="btn btn-outline-light w-100" (click)="logout()">
@@ -29,42 +29,77 @@
         </button>
       </div>
     </nav>
-    
-    
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <h1 style="text-align: center; font-weight: bold;">Manage Loans</h1>
+      <h1 class="text-center fw-bold">Manage Loans</h1>
 
       <form [formGroup]="loanForm" (ngSubmit)="addLoan()">
         <div class="mb-3">
-          <label for="amount">Loan Amount</label>
-          <input id="amount" formControlName="amount" class="form-control" required />
+          <label for="amount">Principal Amount</label>
+          <input id="amount" type="number" formControlName="amount" class="form-control" required />
         </div>
         <div class="mb-3">
-          <label for="term">Loan Term (Months)</label>
-          <input id="term" formControlName="term" class="form-control" required />
+          <label for="rate">Interest Rate</label>
+          <input id="rate" formControlName="rate" class="form-control" required />
         </div>
-        <button class="btn btn-primary" type="submit">Add Loan</button>
+        <div class="mb-3">
+          <label for="repayment">Repayment Period</label>
+          <input id="repayment" formControlName="repayment" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="date">Due Date</label>
+          <input id="date" type="date" formControlName="date" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="frequency">Payment Frequency</label>
+          <select id="frequency" formControlName="frequency" class="form-control" required>
+            <option value="Monthly">Monthly</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Annually">Annually</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="status">Status</label>
+          <select id="status" formControlName="status" class="form-control" required>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Paid">Paid</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+          {{ isEditing ? 'Update Loan' : 'Add Loan' }}
+        </button>
       </form>
 
       <h4 class="mt-4">Loan Repayment Schedule</h4>
       <table class="table">
         <thead>
           <tr>
-            <th>Amount</th>
-            <th>Term (Months)</th>
-            <th>Action</th>
+            <th>Loan ID</th>
+            <th>Principal Amount</th>
+            <th>Interest Rate</th>
+            <th>Repayment Period</th>
+            <th>Due Date</th>
+            <th>Frequency</th>
+            <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let loan of loans">
+          <tr *ngFor="let loan of loans; let i = index">
+            <td>{{ loan.id }}</td>
             <td>{{ loan.amount }}</td>
-            <td>{{ loan.term }}</td>
+            <td>{{ loan.rate }}</td>
+            <td>{{ loan.repayment }}</td>
+            <td>{{ loan.date }}</td>
+            <td>{{ loan.frequency }}</td>
+            <td>{{ loan.status }}</td>
             <td>
-              <button class="btn btn-primary btn-sm me-2" (click)="updateLoan(loan)">Edit</button>
+              <button class="btn btn-primary btn-sm me-2" (click)="editLoan(loan)">Edit</button>
               <button class="btn btn-danger btn-sm" (click)="deleteLoan(loan)">Delete</button>
             </td>
-            
           </tr>
         </tbody>
       </table>
