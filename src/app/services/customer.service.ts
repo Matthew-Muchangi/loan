@@ -1,41 +1,45 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+interface Customer {
+  id: number;
+  firstname: string;
+  lastname: string;
+
+  phonenumber: string;
+  nationalid: string;
+  created_at: Date;
+  updated_at: Date;
+}
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CustomerService {
-  private customersSource = new BehaviorSubject<{ id: number; name: string; email: string }[]>(this.getStoredCustomers());
-  customers$ = this.customersSource.asObservable();
+  private apiUrl = 'http://172.16.8.24:8080/customers';
+  private customersSubject = new BehaviorSubject<Customer[]>([]);
+  customers$ = this.customersSubject.asObservable();
+  
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
-
-  private getStoredCustomers(): { id: number; name: string; email: string }[] {
-    const savedCustomers = localStorage.getItem('customers');
-    return savedCustomers ? JSON.parse(savedCustomers) : [];
+  getCustomers(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(this.apiUrl);
   }
 
-  private saveToLocalStorage(customers: { id: number; name: string; email: string }[]): void {
-    localStorage.setItem('customers', JSON.stringify(customers));
+  getCustomerById(id: number): Observable<Customer> {
+    return this.http.get<Customer>(`${this.apiUrl}/${id}`);
   }
 
-  addCustomer(customer: { id: number; name: string; email: string }): void {
-    const currentCustomers = this.customersSource.value;
-    const updatedCustomers = [...currentCustomers, customer];
-    this.customersSource.next(updatedCustomers);
-    this.saveToLocalStorage(updatedCustomers);
+  addCustomer(customer: Customer): Observable<Customer> {
+    return this.http.post<Customer>(this.apiUrl, customer);
   }
 
-  deleteCustomer(customer: { id: number; name: string; email: string }): void {
-    const updatedCustomers = this.customersSource.value.filter(c => c !== customer);
-    this.customersSource.next(updatedCustomers);
-    this.saveToLocalStorage(updatedCustomers);
+  updateCustomer(id: number, customer: Customer): Observable<Customer> {
+    return this.http.put<Customer>(`${this.apiUrl}/${id}`, customer);
   }
 
-  updateCustomer(index: number, updatedCustomer: { id: number; name: string; email: string }): void {
-    const currentCustomers = this.customersSource.value;
-    currentCustomers[index] = updatedCustomer;
-    this.customersSource.next([...currentCustomers]);
-    this.saveToLocalStorage(currentCustomers);
+  deleteCustomer(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

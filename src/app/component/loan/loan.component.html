@@ -1,22 +1,36 @@
 <div class="container-fluid vh-100 d-flex flex-column">
   <div class="row flex-grow-1">
     <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-      <div class="position-sticky pt-3">
-        
+    <nav class="col-md-2 d-none d-md-block bg-dark sidebar position-fixed top-0 start-0 vh-100 d-flex flex-column justify-content-between">
+      <div class="pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active text-white" routerLink="/dashboard">Dashboard</a>
+            <a class="nav-link active text-white" routerLink="/dashboard">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/customer">Manage Customers</a>
+            <a class="nav-link text-white" routerLink="/customer">
+              <i class="bi bi-people-fill"></i> Manage Customers
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/loan">Manage Loans</a>
+            <a class="nav-link text-white" routerLink="/loan">
+              <i class="bi bi-cash-coin"></i> Manage Loans
+            </a>
           </li>
         </ul>
       </div>
+    
+      <!-- Logout Button -->
+      <div class="p-3">
+        <button class="btn btn-outline-light w-100" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i> Sign Out
+        </button>
+      </div>
     </nav>
+    
+    
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <h1 style="text-align: center; font-weight: bold;">Manage Loans</h1>

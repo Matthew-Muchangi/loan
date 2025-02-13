@@ -1,48 +1,92 @@
-<div
-  class="container-fluid vh-100 d-flex flex-column"
->
+<div class="container-fluid vh-100 d-flex flex-column">
   <div class="row flex-grow-1">
     <!-- Sidebar -->
-  <!-- Sidebar -->
-  <nav class="col-md-2 d-none d-md-block bg-dark sidebar vh-100">
-    <div class="position-sticky pt-3">
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active text-white" routerLink="/dashboard">Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/customer">Manage Customers</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/loan">Manage Loans</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    <!-- Sidebar -->
+    <nav class="col-md-2 d-none d-md-block bg-dark sidebar position-fixed top-0 start-0 vh-100 d-flex flex-column justify-content-between">
+      <div class="pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active text-white" routerLink="/dashboard">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/customer">
+              <i class="bi bi-people-fill"></i> Manage Customers
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/loan">
+              <i class="bi bi-cash-coin"></i> Manage Loans
+            </a>
+          </li>
+        </ul>
+      </div>
+    
+      <!-- Logout Button -->
+      <div class="p-3">
+        <button class="btn btn-outline-light w-100" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i> Sign Out
+        </button>
+      </div>
+    </nav>
+    
 
     <!-- Main Content -->
     <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4">
-      <h1 style="text-align: center; font-weight: bold;">Manage Customers</h1>
+      <h1 class="text-center fw-bold">Manage Customers</h1>
 
       <!-- Customer Form -->
-      <form [formGroup]="customerForm" (ngSubmit)="addCustomer()">
+      <form [formGroup]="customerForm" (ngSubmit)="addOrUpdateCustomer()">
         <div class="mb-3">
-          <label for="name">Name</label>
+          <label for="firstname">First Name</label>
           <input
-            id="name"
-            formControlName="name"
+            id="firstname"
+            formControlName="firstname"
             class="form-control"
-            placeholder="Enter customer name"
+            placeholder="Enter first name"
             required
           />
         </div>
         <div class="mb-3">
+          <label for="lastname">Last Name</label>
+          <input
+            id="lastname"
+            formControlName="lastname"
+            class="form-control"
+            placeholder="Enter last name"
+            required
+          />
+        </div>
+        <!-- <div class="mb-3">
           <label for="email">Email</label>
           <input
             id="email"
             formControlName="email"
+            type="email"
             class="form-control"
             placeholder="Enter customer email"
+            required
+          />
+        </div> -->
+        <div class="mb-3">
+          <label for="phonenumber">Phone Number</label>
+          <input
+            id="phonenumber"
+            formControlName="phonenumber"
+            type="text"
+            class="form-control"
+            placeholder="Enter phone number"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="nationalid">National ID</label>
+          <input
+            id="nationalid"
+            formControlName="nationalid"
+            class="form-control"
+            placeholder="Enter national ID"
             required
           />
         </div>
@@ -53,30 +97,36 @@
 
       <!-- Customer List -->
       <h4 class="mt-4">Customer List</h4>
-      <table class="table">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <!-- <th>Email</th> -->
+            <th>Phone Number</th>
+            <th>National ID</th>
+            <th>Created At</th>
+            <th>Updated At</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let customer of customers; let i = index">
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.email }}</td>
+            <td>{{ customer.firstname }}</td>
+            <td>{{ customer.lastname }}</td>
+            <td>{{ customer.phonenumber }}</td>
+            <td>{{ customer.nationalid }}</td>
+            <td>{{ customer.created_at | date:'short' }}</td>
+            <td>{{ customer.updated_at | date:'short' }}</td>
             <td>
-              <!--Edit Customer Data-->
-              <button
-                class="btn btn-primary btn-sm me-2"
-                (click)="editCustomer(customer, i)">Edit
+              <!-- Edit Customer -->
+              <button class="btn btn-primary btn-sm me-2" (click)="editCustomer(customer)">
+                Edit
               </button>
-              <!--Delete Customer Data-->
-              <button
-                class="btn btn-danger btn-sm"
-                (click)="deleteCustomer(customer)">Delete
+              <!-- Delete Customer -->
+              <button class="btn btn-danger btn-sm" (click)="deleteCustomer(customer)">
+                Delete
               </button>
-
             </td>
           </tr>
         </tbody>

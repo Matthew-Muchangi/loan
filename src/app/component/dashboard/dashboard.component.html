@@ -1,84 +1,95 @@
-<div class="container-fluid vh-100">
+<div class="container-fluid vh-100 bg-light">
   <div class="row h-100">
     <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block bg-dark sidebar vh-100">
-      <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active text-white" routerLink="/dashboard">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/customer">Manage Customers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/loan">Manage Loans</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <!-- Sidebar Navigation -->
+<nav class="col-md-2 d-none d-md-block bg-dark sidebar position-fixed top-0 start-0 vh-100 d-flex flex-column justify-content-between">
+  <div class="pt-3">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link active text-white" routerLink="/dashboard">
+          <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/customer">
+          <i class="bi bi-people-fill"></i> Manage Customers
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/loan">
+          <i class="bi bi-cash-coin"></i> Manage Loans
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Logout Button -->
+  <div class="p-3">
+    <button class="btn btn-outline-light w-100" (click)="logout()">
+      <i class="bi bi-box-arrow-right"></i> Sign Out
+    </button>
+  </div>
+</nav>
+
 
     <!-- Main Content -->
-    <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
-      <h1 class="text-center fw-bold mt-3">Loan Management Dashboard</h1>
-
+    <main class="col-md-10 ms-auto px-md-5 py-4">
+      <h2 class="fw-bold text-primary">Loan Management Dashboard</h2>
+      
       <!-- Dashboard Stats -->
       <div class="row mt-4">
         <div class="col-md-4">
-          <div class="card text-white bg-primary mb-3">
-            <div class="card-body">
-              <h5 class="card-title">Total Loans</h5>
-              <p class="card-text fs-4">1,250</p>
+          <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+              <h5 class="card-title text-primary">Total Customers</h5>
+              <p class="fs-3 fw-bold text-dark">{{ totalCustomers }}</p>
             </div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card text-white bg-success mb-3">
-            <div class="card-body">
-              <h5 class="card-title">Active Loans</h5>
-              <p class="card-text fs-4">890</p>
+          <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+              <h5 class="card-title text-success">Active Loans</h5>
+              <p class="fs-3 fw-bold text-dark">890</p>
             </div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card text-white bg-danger mb-3">
-            <div class="card-body">
-              <h5 class="card-title">Overdue Loans</h5>
-              <p class="card-text fs-4">120</p>
+          <div class="card shadow-sm border-0">
+            <div class="card-body text-center">
+              <h5 class="card-title text-danger">Overdue Loans</h5>
+              <p class="fs-3 fw-bold text-dark">120</p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Charts Section -->
-      <div class="row">
+      <div class="row mt-4">
         <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">
-              <h5 class="card-title">Loan Growth Trend</h5>
-            </div>
+          <div class="card shadow-sm border-0">
+            <div class="card-header bg-white fw-bold">Loan Growth Trend</div>
             <div class="card-body">
-              <canvas id="myAreaChart"></canvas>
+              <canvas id="loanGrowthChart"></canvas>
             </div>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">
-              <h5 class="card-title">Revenue Analysis</h5>
-            </div>
+          <div class="card shadow-sm border-0">
+            <div class="card-header bg-white fw-bold">Revenue Analysis</div>
             <div class="card-body">
-              <canvas id="myBarChart"></canvas>
+              <canvas id="revenueChart"></canvas>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Loan Records Table -->
-      <div class="mt-4 flex-grow-1">
-        <h4>Loan Records</h4>
+      <div class="mt-4">
+        <h4 class="text-primary fw-bold">Loan Records</h4>
         <div class="table-responsive">
-          <table id="datatablesSimple" class="table table-striped">
-            <thead>
+          <table class="table table-hover shadow-sm">
+            <thead class="table-primary">
               <tr>
                 <th>Full Name</th>
                 <th>Amount</th>
@@ -94,8 +105,8 @@
                 <td>12</td>
                 <td><span class="badge bg-success">Active</span></td>
                 <td>
-                  <button class="btn btn-primary btn-sm me-2">Edit</button>
-                  <button class="btn btn-danger btn-sm">Delete</button>
+                  <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
+                  <button class="btn btn-sm btn-outline-danger">Delete</button>
                 </td>
               </tr>
               <tr>
@@ -104,8 +115,8 @@
                 <td>24</td>
                 <td><span class="badge bg-danger">Overdue</span></td>
                 <td>
-                  <button class="btn btn-primary btn-sm me-2">Edit</button>
-                  <button class="btn btn-danger btn-sm">Delete</button>
+                  <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
+                  <button class="btn btn-sm btn-outline-danger">Delete</button>
                 </td>
               </tr>
               <tr>
@@ -114,8 +125,8 @@
                 <td>22</td>
                 <td><span class="badge bg-primary">Pending</span></td>
                 <td>
-                  <button class="btn btn-primary btn-sm me-2">Edit</button>
-                  <button class="btn btn-danger btn-sm">Delete</button>
+                  <button class="btn btn-sm btn-outline-primary me-2">Edit</button>
+                  <button class="btn btn-sm btn-outline-danger">Delete</button>
                 </td>
               </tr>
             </tbody>

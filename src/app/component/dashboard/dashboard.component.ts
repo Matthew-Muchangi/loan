@@ -1,18 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/services/customer.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  customers: { id: number; name: string; email: string }[] = [];
+  customers: { firstname: string; lastname: string; phonenumber: string; nationalid: string; }[] = [];
+  totalCustomers: number = 0;
 
-  constructor(private customerService: CustomerService) {}
+  constructor(
+    private customerService: CustomerService,
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.customerService.customers$.subscribe((customers) => {
       this.customers = customers;
+      this.loadCustomerCount();
     });
+  }
+
+  loadCustomerCount(): void {
+    this.customerService.getCustomers().subscribe(customers => {
+      this.totalCustomers = customers.length;
+    });
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['']); // Redirect to dashboard after logout
   }
 }

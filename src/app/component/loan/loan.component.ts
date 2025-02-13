@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loan',
@@ -7,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./loan.component.css']
 })
 export class LoanComponent implements OnInit {
-updateLoan(_t46: { id: number; amount: number; term: number; }) {
+updateLoan(_t52: { id: number; amount: number; term: number; }) {
 throw new Error('Method not implemented.');
 }
   loanForm!: FormGroup;
@@ -15,7 +17,11 @@ throw new Error('Method not implemented.');
   isEditing: boolean = false;
   selectedLoanIndex: number | null = null;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loanForm = this.fb.group({
@@ -71,5 +77,10 @@ throw new Error('Method not implemented.');
 
   private saveLoans(): void {
     localStorage.setItem('loans', JSON.stringify(this.loans));
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['']); // Redirect to dashboard after logout
   }
 }
