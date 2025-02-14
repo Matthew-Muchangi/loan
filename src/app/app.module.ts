@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
+
 // Material & Charts
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -44,6 +45,7 @@ import { LoanComponent } from './component/loan/loan.component';
     MatCardModule,
     MatTableModule,
     MatInputModule,
+    
     
    
   ],

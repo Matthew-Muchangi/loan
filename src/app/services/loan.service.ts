@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 interface Loan {
   id: number;
   amount: string;
-  rate: string;
+  rate: number;
   repayment: string;
   date: Date;
   frequency: string;
@@ -40,5 +40,9 @@ export class LoanService {
 
   deleteLoan(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getOverdueLoans(): Observable<Loan[]> {
+    return this.http.get<Loan[]>(`${this.apiUrl}?status=OVERDUE`);
   }
 }

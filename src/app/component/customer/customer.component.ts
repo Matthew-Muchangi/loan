@@ -12,8 +12,11 @@ import { Router } from '@angular/router';
 export class CustomerComponent implements OnInit {
   customerForm: FormGroup;
   customers: any[] = [];
+  filteredCustomers: any[] = [];
   isEditing = false;
   editingCustomerId: number | null = null;
+  searchTerm: string = '';
+  itemsPerPage: number = 10;
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +39,21 @@ export class CustomerComponent implements OnInit {
   loadCustomers(): void {
     this.customerService.getCustomers().subscribe((data) => {
       this.customers = data;
+      this.filterCustomers();
     });
+  }
+
+  filterCustomers(): void {
+    this.filteredCustomers = this.customers.filter(customer =>
+      (customer.firstname && customer.firstname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
+      (customer.lastname && customer.lastname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
+      (customer.phonenumber && customer.phonenumber.includes(this.searchTerm)) ||
+      (customer.nationalid && customer.nationalid.includes(this.searchTerm))
+    ).slice(0, this.itemsPerPage);
+  }
+
+  updatePagination(): void {
+    this.filterCustomers();
   }
 
   addOrUpdateCustomer(): void {
@@ -60,8 +77,9 @@ export class CustomerComponent implements OnInit {
       });
     } else {
       this.customerService.addCustomer(customerData).subscribe((newCustomer) => {
-        this.customers.push(newCustomer); // Use backend-generated ID
+        this.customers.push(newCustomer);
         this.resetForm();
+        this.filterCustomers();
       });
     }
   }

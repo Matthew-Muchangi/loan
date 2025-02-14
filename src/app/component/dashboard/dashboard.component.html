@@ -1,82 +1,71 @@
 <div class="container-fluid vh-100 bg-light">
   <div class="row h-100">
     <!-- Sidebar -->
-    <nav class="col-md-2 d-none d-md-block bg-dark sidebar position-fixed top-0 start-0 vh-100 d-flex flex-column justify-content-between">
-      <div class="pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active text-white" routerLink="/dashboard">
+    <nav style="width: 250px; height: 100vh; background: #007bff; color: white; position: fixed; top: 0; left: 0; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <h4 style="text-align:center; font-weight: bold;">Loan Management</h4>
+        <ul style="list-style: none; padding: 0; margin-top: 20px;">
+          <li>
+            <a routerLink="/dashboard" style="display: block; padding: 10px; color: white; text-decoration: none; border-radius: 5px; background: white; color: #007bff; font-weight: bold;">
               <i class="bi bi-speedometer2"></i> Dashboard
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/customer">
-              <i class="bi bi-people-fill"></i> Manage Customers
+          <li>
+            <a routerLink="/customer" style="display: block; padding: 10px; color: white; text-decoration: none; border-radius: 5px;">
+              <i class="bi bi-people-fill"></i> Customers
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/loan">
-              <i class="bi bi-cash-coin"></i> Manage Loans
+          <li>
+            <a routerLink="/loan" style="display: block; padding: 10px; color: white; text-decoration: none; border-radius: 5px;">
+              <i class="bi bi-cash-coin"></i> Loans
             </a>
           </li>
         </ul>
       </div>
-      <div class="p-3">
-        <button class="btn btn-outline-light w-100" (click)="logout()">
-          <i class="bi bi-box-arrow-right"></i> Sign Out
-        </button>
-      </div>
+      <button (click)="logout()" style="width: 100%; padding: 10px; border: none; background: white; color: #007bff; font-weight: bold; border-radius: 5px;">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </button>
     </nav>
     
     <!-- Main Content -->
     <main class="col-md-10 ms-auto px-md-5 py-4">
-      <h2 class="fw-bold text-primary">Loan Management Dashboard</h2>
+      <h2 class="fw-bold text-primary" style="text-align: center;">Loan Management Dashboard</h2>
       
-      <!-- Dashboard Stats -->
-      <div class="row mt-4">
-        <div class="col-md-4">
-          <div class="card shadow-sm border-0">
-            <div class="card-body text-center">
-              <h5 class="card-title text-primary">Total Customers</h5>
-              <p class="fs-3 fw-bold text-dark">{{ totalCustomers }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card shadow-sm border-0">
-            <div class="card-body text-center">
-              <h5 class="card-title text-success">Active Loans</h5>
-              <p class="fs-3 fw-bold text-dark">{{ totalLoans }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card shadow-sm border-0">
-            <div class="card-body text-center">
-              <h5 class="card-title text-danger">Overdue Loans</h5>
-              <p class="fs-3 fw-bold text-dark">120</p>
-            </div>
-          </div>
-        </div>
-        <!-- Charts Section -->
-      <div class="row mt-4">
-        <div class="col-md-6">
-          <div class="card shadow-sm border-0">
-            <div class="card-header bg-white fw-bold">Loan Growth Trend</div>
-            <div class="card-body">
-              <canvas id="loanGrowthChart"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card shadow-sm border-0">
-            <div class="card-header bg-white fw-bold">Revenue Analysis</div>
-            <div class="card-body">
-              <canvas id="revenueChart"></canvas>
-            </div>
-          </div>
-        </div>
+<!-- Dashboard Stats -->
+<div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+  <!-- Total Customers -->
+  <div class="col">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body text-center">
+        <h5 class="card-title text-primary">Total Customers</h5>
+        <p class="fs-3 fw-bold text-dark">{{ totalCustomers }}</p>
       </div>
+    </div>
+  </div>
+
+  <!-- Active Loans -->
+  <div class="col">
+    <div class="card shadow-sm border-0 h-100">
+      <div class="card-body text-center">
+        <h5 class="card-title text-success">Active Loans</h5>
+        <p class="fs-3 fw-bold text-dark">{{ totalLoans }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- Bar Chart Section -->
+      <div class="row mt-4">
+        <div class="col-md-6 mx-auto">
+          <div class="card shadow-sm border-0">
+            <div class="card-header bg-white fw-bold">Loan Statistics</div>
+            <div class="card-body">
+              <canvas id="loanBarChart"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
