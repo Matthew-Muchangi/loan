@@ -7,8 +7,11 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private loginUrl = 'http://172.16.8.24:8080/auth/login'; 
-  private registerUrl = 'http://172.16.8.24:8080/auth/register'; 
+  getToken() {
+    throw new Error('Method not implemented.');
+  }
+  private loginUrl = 'http://172.16.8.12:8000/auth/login'; 
+  private registerUrl = 'http://172.16.12.24:8000/auth/register'; 
 
   constructor(private http: HttpClient, private router: Router) {}
 

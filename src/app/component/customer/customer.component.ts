@@ -66,6 +66,7 @@ export class CustomerComponent implements OnInit {
       lastname: this.customerForm.value.lastname,
       phonenumber: this.customerForm.value.phonenumber,
       nationalid: this.customerForm.value.nationalid,
+      loans: this.customerForm.value.loans,
       created_at: new Date(),
       updated_at: new Date(),
     };

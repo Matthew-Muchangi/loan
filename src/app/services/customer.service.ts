@@ -8,6 +8,7 @@ interface Customer {
   lastname: string;
   phonenumber: string;
   nationalid: string;
+  loans :string;
   created_at: Date;
   updated_at: Date;
 }
@@ -16,7 +17,7 @@ interface Customer {
   providedIn: 'root'
 })
 export class CustomerService {
-  private apiUrl = 'http://172.16.8.24:8080/customers';
+  private apiUrl = 'http://172.16.8.12:8000/customers';
   private customersSubject = new BehaviorSubject<Customer[]>([]);
   customers$ = this.customersSubject.asObservable();
 

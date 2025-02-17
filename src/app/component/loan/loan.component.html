@@ -15,7 +15,7 @@
           </a>
         </li>
         <li>
-          <a routerLink="/loan" style="display: block; padding: 10px; color: white; text-decoration: none; border-radius: 5px; background: white; color: #007bff; font-weight: bold;">
+          <a routerLink="/loan" style="display: block; padding: 10px; color: white; text-decoration: none; border-radius: 5px;background: white; color: #007bff; font-weight: bold;">
             <i class="bi bi-cash-coin"></i> Loans
           </a>
         </li>
@@ -27,53 +27,54 @@
   </nav>
 
   <!-- Main Content -->
-  <main style="margin-left: 260px; width: calc(100% - 260px); padding: 20px; background: #f8f9fa;">
+  <main class="content flex-grow-1 p-3" style="margin-left: 260px; width: calc(100% - 260px);">
     <div class="container">
-      <h1 style="text-align: center; font-weight: bold; color: #007bff;">Manage Loans</h1>
+      <h1 class="text-center text-primary fw-bold">Manage Loans</h1>
 
       <!-- Loan Form -->
-      <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;">
-        <h5 style="font-weight: bold; color: #007bff;">Loan Details</h5>
+      <div class="bg-white p-4 rounded shadow-sm mt-4">
+        <h5 class="text-primary fw-bold">Loan Details</h5>
         <form [formGroup]="loanForm" (ngSubmit)="addOrUpdateLoan()">
-          <div class="row">
-
-            <div class="col-md-6">
-              <label for="customerid">Customer</label>
-              <select id="customerid" formControlName="customerId" class="form-control" required>
-                <option value="" disabled>Select a Customer</option>
-                <option *ngFor="let customer of customers" [value]="customer.id">
-                  {{ customer.name }} (ID: {{ customer.id }})
-                </option>
-              </select>
-            </div>
-            
-
+        
+          <!-- Customer Dropdown -->
+          <div class="col-md-6">
+            <label for="customer">Customer</label>
+            <select id="customer" formControlName="customer" class="form-control" required>
+              <option value="" disabled>Select a Customer</option>
+              <option *ngFor="let customer of customers" [value]="customer.id">
+                {{ customer.firstname }} {{ customer.lastname }} (ID: {{ customer.id }})
+              </option>
+            </select>
           </div>
-            <div class="col-md-6">
-              <label for="amount">Principal Amount</label>
-              <input id="amount" type="number" formControlName="amount" class="form-control" required />
-            </div>
-           <div class="col-md-6">
-  <label for="interestRate">Interest Rate (%)</label>
-  <input id="interestRate" type="number" formControlName="rate" class="form-control" min="0" max="100" step="0.01" required />
-  <div *ngIf="loanForm.get('rate')?.invalid && loanForm.get('rate')?.touched" class="text-danger">
-    Interest rate must be between 0% and 100%.
-  </div>
-</div>
           
 
           <div class="row mt-3">
             <div class="col-md-6">
-              <label for="repayment">Repayment Period</label>
-              <input id="repayment" formControlName="repayment" class="form-control" required />
+              <label for="principalAmount">Principal Amount</label>
+              <input id="principalAmount" type="number" formControlName="principalAmount" class="form-control" required />
             </div>
             <div class="col-md-6">
-              <label for="date">Due Date</label>
-              <input id="date" type="date" formControlName="date" class="form-control" required />
+              <label for="interestRate">Interest Rate (%)</label>
+              <input id="interestRate" type="number" formControlName="interestRate" class="form-control" min="0" max="100" step="0.01" required />
             </div>
           </div>
 
           <div class="row mt-3">
+            <div class="col-md-6">
+              <label for="repaymentPeriod">Repayment Period</label>
+              <input id="repaymentPeriod" type="text" formControlName="repaymentPeriod" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+              <label for="duedate">Due Date</label>
+              <input id="duedate" type="date" formControlName="duedate" class="form-control" required />
+            </div>
+          </div>
+
+          <!-- <div class="row mt-3">
+            <div class="col-md-6">
+              <label for="startdate">Start Date</label>
+              <input id="startdate" type="date" formControlName="startdate" class="form-control" required />
+            </div> 
             <div class="col-md-6">
               <label for="frequency">Payment Frequency</label>
               <select id="frequency" formControlName="frequency" class="form-control" required>
@@ -82,6 +83,9 @@
                 <option value="Yearly">Yearly</option>
               </select>
             </div>
+          </div> -->
+
+          <div class="row mt-3">
             <div class="col-md-6">
               <label for="status">Loan Status</label>
               <select id="status" formControlName="status" class="form-control" required>
@@ -96,51 +100,54 @@
             </div>
           </div>
 
-          <button style="width: 100%; margin-top: 20px; padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px;">
+          <button class="btn btn-primary w-100 mt-3">
             <i class="bi bi-save"></i> {{ isEditing ? 'Update Loan' : 'Add Loan' }}
           </button>
         </form>
       </div>
 
       <!-- Loan Table -->
-      <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;">
-        <h5 style="font-weight: bold; color: #007bff;">Loan Repayment Schedule</h5>
-        <table class="table table-striped table-hover mt-3">
-          <thead style="background: #007bff; color: white;">
-            <tr>
-              <th>Customer ID</th>
-              <th>Loan ID</th>
-              <th>Amount</th>
-              <th>Interest Rate</th>
-              <th>Repayment</th>
-              <th>Due Date</th>
-              <th>Frequency</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let loan of loans; let i = index">
-              <td>{{loan.customerid}}</td>
-              <td>{{ loan.id }}</td>
-              <td>{{ loan.amount }}</td>
-              <td>{{ loan.rate }}</td>
-              <td>{{ loan.repayment }}</td>
-              <td>{{ loan.date }}</td>
-              <td>{{ loan.frequency }}</td>
-              <td>{{ loan.status }}</td>
-              
-              <td>
-                <button (click)="editLoan(loan)" class="btn btn-sm btn-primary me-2">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-                <button (click)="deleteLoan(loan)" class="btn btn-sm btn-danger">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="bg-white p-4 rounded shadow-sm mt-4">
+        <h5 class="text-primary fw-bold">Loan Records</h5>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover mt-3">
+            <thead class="bg-primary text-white">
+              <tr>
+                <!-- <th>Customer ID</th> -->
+                <th>Loan ID</th>
+                <th>Principal</th>
+                <th>Interest</th>
+                <th>Repayment</th>
+                <th>Due Date</th>
+                <!-- <th>Start Date</th> -->
+                <!-- <th>Frequency</th> -->
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let loan of loans,"customer of customers>
+                <!-- <td>{{loan.customer}}</td> -->
+                <td>{{ loan.id }}</td>
+                <td>{{ loan.principalAmount }}</td>
+                <td>{{ loan.interestRate }}</td>
+                <td>{{ loan.repaymentPeriod }}</td>
+                <td>{{ loan.duedate }}</td>
+                <!-- <td>{{ loan.startdate }}</td> -->
+                <!-- <td>{{ loan.frequency }}</td> -->
+                <td>{{ loan.status }}</td>
+                <td>
+                  <button (click)="editLoan(loan)" class="btn btn-sm btn-primary me-2">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button (click)="deleteLoan(loan)" class="btn btn-sm btn-danger">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </main>

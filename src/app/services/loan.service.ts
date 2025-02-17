@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 interface Loan {
-  id: number;
-  amount: string;
-  rate: number;
-  repayment: string;
-  date: Date;
+  customer: any;
+  id?: number;  // Optional for new loans
+  principalAmount: number;
+  interestRate: number;
+  repaymentPeriod: string;
+  duedate: string;
+  startdate: string;
   frequency: string;
   status: string;
 }
@@ -16,33 +18,29 @@ interface Loan {
   providedIn: 'root'
 })
 export class LoanService {
-  private apiUrl = 'http://172.16.8.24:8080/loans';
+  private loanUrl = 'http://172.16.8.12:8000/loans';
   private loansSubject = new BehaviorSubject<Loan[]>([]);
   loans$ = this.loansSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
   getLoans(): Observable<Loan[]> {
-    return this.http.get<Loan[]>(this.apiUrl);
+    return this.http.get<Loan[]>(this.loanUrl);
   }
 
   getLoanById(id: number): Observable<Loan> {
-    return this.http.get<Loan>(`${this.apiUrl}/${id}`);
+    return this.http.get<Loan>(`${this.loanUrl}/${id}`);
   }
 
-  addLoan(loan: Omit<Loan, 'id'>): Observable<Loan> {
-    return this.http.post<Loan>(this.apiUrl, loan);
+  addLoan(loan: Loan): Observable<Loan> {
+    return this.http.post<Loan>(this.loanUrl, loan);
   }
 
-  updateLoan(id: number, loan: Loan): Observable<Loan> {
-    return this.http.put<Loan>(`${this.apiUrl}/${id}`, loan);
+  updateLoan(id: number, loan: Partial<Loan>): Observable<Loan> {
+    return this.http.put<Loan>(`${this.loanUrl}/${id}`, loan);
   }
 
   deleteLoan(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
-  getOverdueLoans(): Observable<Loan[]> {
-    return this.http.get<Loan[]>(`${this.apiUrl}?status=OVERDUE`);
+    return this.http.delete<void>(`${this.loanUrl}/${id}`);
   }
 }
