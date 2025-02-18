@@ -16,7 +16,6 @@ export class DashboardComponent implements OnInit {
   customers: { firstname: string; lastname: string; phonenumber: string; nationalid: string; }[] = [];
   totalCustomers: number = 0;
   totalLoans: number = 0;
-  overdueLoans: number = 0;
   loanChart: any;
 
   constructor(
@@ -56,11 +55,11 @@ export class DashboardComponent implements OnInit {
     this.loanChart = new Chart('loanBarChart', {
       type: 'bar',
       data: {
-        labels: ['Total Customers', 'Total Loans', 'Overdue Loans'],
+        labels: ['Total Customers', 'Total Loans'],
         datasets: [{
           label: 'Loan Statistics',
-          data: [this.totalCustomers, this.totalLoans, this.overdueLoans],
-          backgroundColor: ['#007bff', '#28a745', '#dc3545'],
+          data: [this.totalCustomers, this.totalLoans],
+          backgroundColor: ['#007bff', '#28a745'],
           borderWidth: 1
         }]
       },

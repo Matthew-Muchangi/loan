@@ -22,6 +22,11 @@ import { RegisterComponent } from './component/register/register.component';
 import { LoginComponent } from './component/login/login.component';
 import { CustomerComponent } from './component/customer/customer.component';
 import { LoanComponent } from './component/loan/loan.component';
+import { RepaymentsComponent } from './component/repayments/repayments.component';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -30,7 +35,10 @@ import { LoanComponent } from './component/loan/loan.component';
     RegisterComponent,
     LoginComponent,
     CustomerComponent,
-    LoanComponent
+    LoanComponent,
+    RepaymentsComponent,
+ 
+
    
   ],
   imports: [

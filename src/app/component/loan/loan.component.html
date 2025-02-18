@@ -19,6 +19,13 @@
             <i class="bi bi-cash-coin"></i> Loans
           </a>
         </li>
+<!--         
+        <li>
+          <a routerLink="/repayments" style="display: block; padding: 10px; color: white; text-decoration: none; border-radius: 5px;">
+            <i class="bi bi-wallet2"></i> Repayments
+          </a>
+        </li> -->
+
       </ul>
     </div>
     <button (click)="logout()" style="width: 100%; padding: 10px; border: none; background: white; color: #007bff; font-weight: bold; border-radius: 5px;">
@@ -89,13 +96,13 @@
             <div class="col-md-6">
               <label for="status">Loan Status</label>
               <select id="status" formControlName="status" class="form-control" required>
-                <option value="PENDING">Pending</option>
-                <option value="APPROVED">Approved</option>
-                <option value="REJECTED">Rejected</option>
-                <option value="DISBURSED">Disbursed</option>
-                <option value="IN_PAYMENT">In Payment</option>
-                <option value="PAID">Paid</option>
-                <option value="DEFAULTED">Defaulted</option>
+                <option value="PENDING">PENDING</option>
+                <option value="APPROVED">APPROVED</option>
+                <option value="REJECTED">REJECTED</option>
+                <option value="DISBURSED">DISBURSED</option>
+                <option value="IN_PAYMENT">INREPAYMENT</option>
+                <option value="PAID">PAID</option>
+                <option value="DEFAULTED">DEFAULTED</option>
               </select>
             </div>
           </div>
